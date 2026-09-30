@@ -1,0 +1,38 @@
+{
+  "profile": "benchmark_small",
+  "output_dir": "featurebench_runs",
+  "data_dir": "data",
+  "rae_root": "official_RAE",
+  "rae_config": "configs/stage1/pretrained/DINOv2-B.yaml",
+  "preprocess": {
+    "resize": 256,
+    "interpolation": "bilinear",
+    "antialias": true,
+    "rgb": true,
+    "input_range": "[0,1]"
+  },
+  "counts": {
+    "train": 5000,
+    "validation": 1000,
+    "test": 2000
+  },
+  "split_seed": 42,
+  "extract_batch": 4,
+  "search_block": 256,
+  "pca_dims": [
+    64,
+    128,
+    256
+  ],
+  "adapter_dims": [
+    128,
+    256
+  ],
+  "adapter_seeds": [
+    42,
+    43,
+    44
+  ],
+  "adapter_epochs": 50,
+  "adapter_batch": 256
+}
