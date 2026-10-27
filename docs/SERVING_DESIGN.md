@@ -137,7 +137,7 @@ network and publish host ports on loopback only.
 More workers within one query can reduce low-load latency. More concurrent
 queries with fewer workers each can improve throughput under load. Phase 5
 must measure both (workers=4, concurrent=1) and (workers=1, concurrent=4)
-under the same CPU limits. Neither is presumed faster. No optimization will
+under the same CPU limits. Neither is assumed faster. No optimization will
 precede the Phase 5 CPU/heap pprof measurements.
 
 `Query.id` is an opaque correlation ID and no longer excludes gallery rows.
