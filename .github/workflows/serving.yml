@@ -1,0 +1,55 @@
+name: Serving correctness
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  go-shard:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: serving/go.mod
+          cache-dependency-path: serving/go.sum
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: pip
+      - name: Check Go formatting
+        working-directory: serving
+        run: test -z "$(gofmt -l cmd internal proto)"
+      - name: Vet and race tests
+        working-directory: serving
+        run: |
+          go vet ./...
+          go test -race ./...
+      - name: Build binaries
+        working-directory: serving
+        run: |
+          go build -o bin/shard ./cmd/shard
+          go build -o bin/verify ./cmd/verify
+          go build -o bin/coordinator ./cmd/coordinator
+          go build -o bin/loadgen ./cmd/loadgen
+      - run: python -m pip install -e ".[dev]"
+      - name: Generate synthetic smoke representations
+        run: python -m featurebench smoke
+      - name: Verify gRPC against exported oracles
+        run: |
+          run_dir=$(find featurebench_runs -maxdepth 1 -type d -name 'smoke-*' | head -n 1)
+          python scripts/serving_verify.py --run-dir "$run_dir" --methods full_fp32,full_fp16_storage,pca4 --output smoke-serving.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: synthetic-serving-correctness
+          path: smoke-serving.json
+      - name: Compose end-to-end verification and short load test
+        run: |
+          run_dir=$(find featurebench_runs -maxdepth 1 -type d -name 'smoke-*' | head -n 1)
+          python scripts/serving_e2e.py --run-dir "$run_dir" --methods full_fp32 --shard-counts 2 --compose --output compose-serving.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: compose-serving-correctness
+          path: compose-serving.json

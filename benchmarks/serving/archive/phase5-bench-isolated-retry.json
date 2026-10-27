@@ -1,0 +1,574 @@
+{
+  "action": "bench",
+  "complete": false,
+  "environment": {
+    "docker_cpus": 16,
+    "docker_memory_bytes": 16470925312,
+    "docker_server": "29.8.1",
+    "go": "go version go1.26.2 windows/amd64",
+    "host_samples": [
+      {
+        "collector": "GetSystemTimes delta over two seconds; GlobalMemoryStatusEx",
+        "cpu": "Intel(R) Core(TM) Ultra 9 285H",
+        "cpu_percent": 11.506582155046319,
+        "free_memory_kib": 3683460,
+        "logical_cpus": 16,
+        "memory_kib": 32961892
+      },
+      {
+        "collector": "GetSystemTimes delta over two seconds; GlobalMemoryStatusEx",
+        "cpu": "Intel(R) Core(TM) Ultra 9 285H",
+        "cpu_percent": 16.674792784007796,
+        "free_memory_kib": 3676656,
+        "logical_cpus": 16,
+        "memory_kib": 32961892
+      },
+      {
+        "collector": "GetSystemTimes delta over two seconds; GlobalMemoryStatusEx",
+        "cpu": "Intel(R) Core(TM) Ultra 9 285H",
+        "cpu_percent": 14.092664092664098,
+        "free_memory_kib": 3685048,
+        "logical_cpus": 16,
+        "memory_kib": 32961892
+      }
+    ],
+    "idle_check": {
+      "criteria": "median CPU <=15%; free host memory >=1.5 GiB; no StepWise containers",
+      "median_cpu_percent": 14.092664092664098,
+      "minimum_free_memory_kib": 3676656
+    },
+    "image_id": "sha256:d15630aa289d10da924c44492dbda6c5eab13bafcd56236c2f2636c8788c224c",
+    "kind": "kind v0.33.0 go1.26.7 windows/amd64",
+    "running_containers": [
+      "rae-serving-control-plane"
+    ],
+    "scope": "Single Windows host, Docker Desktop WSL2, single-node kind; loopback kubectl port-forward client path",
+    "source_commit": "6e5d9f057bdb07dd3b09b54e394d60b8ff90fa38",
+    "working_tree": [
+      " M scripts/serving_bench.py",
+      "?? benchmarks/serving/phase5-bench-idlechecked-trials/",
+      "?? benchmarks/serving/phase5-bench-idlechecked.json",
+      "?? benchmarks/serving/phase5-bench-isolated-trials/",
+      "?? benchmarks/serving/phase5-bench-isolated.json",
+      "?? benchmarks/serving/phase5-bench-trials/",
+      "?? benchmarks/serving/phase5-bench.json",
+      "?? benchmarks/serving/phase5-version-isolation-verification.json"
+    ]
+  },
+  "experiments": [
+    {
+      "decision": "Retain the scoring implementation; report observed CPU/RSS costs without premature optimization.",
+      "deployment": {
+        "balance": "round_robin",
+        "cluster_ip": false,
+        "context": "kind-rae-serving",
+        "coordinator_replicas": 2,
+        "export": "C:\\Users\\Xiaorui Zhang\\Documents\\ST4001\\github\\rae-feature-compression-benchmark\\serving_exports\\export-278e69a7e3e8abde7df14cbbfa2d4b151f4fe4a5367bdd5b9176422064320212",
+        "image": "rae-serving:local",
+        "max_concurrent_searches": 2,
+        "namespace": "rae-serving",
+        "node_image": "kindest/node:v1.35.0",
+        "replicas_per_shard": 2,
+        "total_shard_cpu_limit": 4,
+        "workers": 2
+      },
+      "name": "pprof",
+      "profiles": [
+        "profile-cpu-1.txt",
+        "profile-cpu-2.txt",
+        "profile-cpu-3.txt"
+      ]
+    },
+    {
+      "deployment": {
+        "balance": "round_robin",
+        "cluster_ip": false,
+        "context": "kind-rae-serving",
+        "coordinator_replicas": 2,
+        "export": "C:\\Users\\Xiaorui Zhang\\Documents\\ST4001\\github\\rae-feature-compression-benchmark\\serving_exports\\export-8ef2196bd2ce3bc437a906ecd4e02c2dc6c79430a13f55b2fa68cdb55c7b973c",
+        "image": "rae-serving:local",
+        "max_concurrent_searches": 2,
+        "namespace": "rae-serving",
+        "node_image": "kindest/node:v1.35.0",
+        "replicas_per_shard": 2,
+        "total_shard_cpu_limit": 4,
+        "workers": 2
+      },
+      "id_mismatches": [
+        0,
+        0,
+        0
+      ],
+      "max_score_errors": [
+        4.551914400963142e-15,
+        4.551914400963142e-15,
+        4.551914400963142e-15
+      ],
+      "name": "E1-full_fp32-s1",
+      "queries_per_trial": 2000
+    },
+    {
+      "deployment": {
+        "balance": "round_robin",
+        "cluster_ip": false,
+        "context": "kind-rae-serving",
+        "coordinator_replicas": 2,
+        "export": "C:\\Users\\Xiaorui Zhang\\Documents\\ST4001\\github\\rae-feature-compression-benchmark\\serving_exports\\export-5b87268df01b11017c70ea414a57269de3f4a33ea42d84b03e0043d65083e62d",
+        "image": "rae-serving:local",
+        "max_concurrent_searches": 2,
+        "namespace": "rae-serving",
+        "node_image": "kindest/node:v1.35.0",
+        "replicas_per_shard": 2,
+        "total_shard_cpu_limit": 4,
+        "workers": 2
+      },
+      "id_mismatches": [
+        0,
+        0,
+        0
+      ],
+      "max_score_errors": [
+        4.551914400963142e-15,
+        4.551914400963142e-15,
+        4.551914400963142e-15
+      ],
+      "name": "E1-full_fp32-s2",
+      "queries_per_trial": 2000
+    },
+    {
+      "deployment": {
+        "balance": "round_robin",
+        "cluster_ip": false,
+        "context": "kind-rae-serving",
+        "coordinator_replicas": 2,
+        "export": "C:\\Users\\Xiaorui Zhang\\Documents\\ST4001\\github\\rae-feature-compression-benchmark\\serving_exports\\export-7c68e90e6f220b76b88ea48a5991af658c7bf330b3b028e56316bca492b44721",
+        "image": "rae-serving:local",
+        "max_concurrent_searches": 2,
+        "namespace": "rae-serving",
+        "node_image": "kindest/node:v1.35.0",
+        "replicas_per_shard": 2,
+        "total_shard_cpu_limit": 4,
+        "workers": 2
+      },
+      "id_mismatches": [
+        0,
+        0,
+        0
+      ],
+      "max_score_errors": [
+        4.551914400963142e-15,
+        4.551914400963142e-15,
+        4.551914400963142e-15
+      ],
+      "name": "E1-full_fp32-s4",
+      "queries_per_trial": 2000
+    },
+    {
+      "deployment": {
+        "balance": "round_robin",
+        "cluster_ip": false,
+        "context": "kind-rae-serving",
+        "coordinator_replicas": 2,
+        "export": "C:\\Users\\Xiaorui Zhang\\Documents\\ST4001\\github\\rae-feature-compression-benchmark\\serving_exports\\export-423a05abf3ab1eafbacc41f9c93dfc2be8257b155ba79664a9508dbf3e1565bb",
+        "image": "rae-serving:local",
+        "max_concurrent_searches": 2,
+        "namespace": "rae-serving",
+        "node_image": "kindest/node:v1.35.0",
+        "replicas_per_shard": 2,
+        "total_shard_cpu_limit": 4,
+        "workers": 2
+      },
+      "id_mismatches": [
+        0,
+        0,
+        0
+      ],
+      "max_score_errors": [
+        2.220446049250313e-16,
+        2.220446049250313e-16,
+        2.220446049250313e-16
+      ],
+      "name": "E1-full_fp16_storage-s1",
+      "queries_per_trial": 2000
+    },
+    {
+      "deployment": {
+        "balance": "round_robin",
+        "cluster_ip": false,
+        "context": "kind-rae-serving",
+        "coordinator_replicas": 2,
+        "export": "C:\\Users\\Xiaorui Zhang\\Documents\\ST4001\\github\\rae-feature-compression-benchmark\\serving_exports\\export-7bd0cdb0f5677083dbe092d54a37c6c02868288d64dcac894252a33141948c7f",
+        "image": "rae-serving:local",
+        "max_concurrent_searches": 2,
+        "namespace": "rae-serving",
+        "node_image": "kindest/node:v1.35.0",
+        "replicas_per_shard": 2,
+        "total_shard_cpu_limit": 4,
+        "workers": 2
+      },
+      "id_mismatches": [
+        0,
+        0,
+        0
+      ],
+      "max_score_errors": [
+        2.220446049250313e-16,
+        2.220446049250313e-16,
+        2.220446049250313e-16
+      ],
+      "name": "E1-full_fp16_storage-s2",
+      "queries_per_trial": 2000
+    },
+    {
+      "deployment": {
+        "balance": "round_robin",
+        "cluster_ip": false,
+        "context": "kind-rae-serving",
+        "coordinator_replicas": 2,
+        "export": "C:\\Users\\Xiaorui Zhang\\Documents\\ST4001\\github\\rae-feature-compression-benchmark\\serving_exports\\export-374221805d2e9b36c1c101efdcbe41014613f6ab1ce92735b5098aa95a97204d",
+        "image": "rae-serving:local",
+        "max_concurrent_searches": 2,
+        "namespace": "rae-serving",
+        "node_image": "kindest/node:v1.35.0",
+        "replicas_per_shard": 2,
+        "total_shard_cpu_limit": 4,
+        "workers": 2
+      },
+      "id_mismatches": [
+        0,
+        0,
+        0
+      ],
+      "max_score_errors": [
+        2.220446049250313e-16,
+        2.220446049250313e-16,
+        2.220446049250313e-16
+      ],
+      "name": "E1-full_fp16_storage-s4",
+      "queries_per_trial": 2000
+    },
+    {
+      "deployment": {
+        "balance": "round_robin",
+        "cluster_ip": false,
+        "context": "kind-rae-serving",
+        "coordinator_replicas": 2,
+        "export": "C:\\Users\\Xiaorui Zhang\\Documents\\ST4001\\github\\rae-feature-compression-benchmark\\serving_exports\\export-c61afbd2e4c44ee1ce1d980b76f2002d4e42863279e7824cb76f8b5ff41412fc",
+        "image": "rae-serving:local",
+        "max_concurrent_searches": 2,
+        "namespace": "rae-serving",
+        "node_image": "kindest/node:v1.35.0",
+        "replicas_per_shard": 2,
+        "total_shard_cpu_limit": 4,
+        "workers": 2
+      },
+      "id_mismatches": [
+        0,
+        0,
+        0
+      ],
+      "max_score_errors": [
+        1.2212453270876722e-15,
+        1.2212453270876722e-15,
+        1.2212453270876722e-15
+      ],
+      "name": "E1-pca64-s1",
+      "queries_per_trial": 2000
+    },
+    {
+      "deployment": {
+        "balance": "round_robin",
+        "cluster_ip": false,
+        "context": "kind-rae-serving",
+        "coordinator_replicas": 2,
+        "export": "C:\\Users\\Xiaorui Zhang\\Documents\\ST4001\\github\\rae-feature-compression-benchmark\\serving_exports\\export-c5c724cc9e399443a84c60daa63da779c31088c8d7dc9ee0d4b6b52450f43390",
+        "image": "rae-serving:local",
+        "max_concurrent_searches": 2,
+        "namespace": "rae-serving",
+        "node_image": "kindest/node:v1.35.0",
+        "replicas_per_shard": 2,
+        "total_shard_cpu_limit": 4,
+        "workers": 2
+      },
+      "id_mismatches": [
+        0,
+        0,
+        0
+      ],
+      "max_score_errors": [
+        1.2212453270876722e-15,
+        1.2212453270876722e-15,
+        1.2212453270876722e-15
+      ],
+      "name": "E1-pca64-s2",
+      "queries_per_trial": 2000
+    },
+    {
+      "deployment": {
+        "balance": "round_robin",
+        "cluster_ip": false,
+        "context": "kind-rae-serving",
+        "coordinator_replicas": 2,
+        "export": "C:\\Users\\Xiaorui Zhang\\Documents\\ST4001\\github\\rae-feature-compression-benchmark\\serving_exports\\export-cd9a9bc9d35b2d0b30b6f3da06b13c4e6e6f421abb782f55c7780ff869c1f963",
+        "image": "rae-serving:local",
+        "max_concurrent_searches": 2,
+        "namespace": "rae-serving",
+        "node_image": "kindest/node:v1.35.0",
+        "replicas_per_shard": 2,
+        "total_shard_cpu_limit": 4,
+        "workers": 2
+      },
+      "id_mismatches": [
+        0,
+        0,
+        0
+      ],
+      "max_score_errors": [
+        1.2212453270876722e-15,
+        1.2212453270876722e-15,
+        1.2212453270876722e-15
+      ],
+      "name": "E1-pca64-s4",
+      "queries_per_trial": 2000
+    },
+    {
+      "deployment": {
+        "balance": "round_robin",
+        "cluster_ip": false,
+        "context": "kind-rae-serving",
+        "coordinator_replicas": 2,
+        "export": "C:\\Users\\Xiaorui Zhang\\Documents\\ST4001\\github\\rae-feature-compression-benchmark\\serving_exports\\export-1ab8bfa155807696db245cb1ff5c4e109435092a335f82cbf48f0811aed91298",
+        "image": "rae-serving:local",
+        "max_concurrent_searches": 2,
+        "namespace": "rae-serving",
+        "node_image": "kindest/node:v1.35.0",
+        "replicas_per_shard": 2,
+        "total_shard_cpu_limit": 4,
+        "workers": 2
+      },
+      "memory_snapshots": [
+        {
+          "shard-0-677884668d-2fxld": {
+            "numeric_index_bytes": 13200000.0,
+            "rss_bytes": 47513600.0
+          },
+          "shard-0-677884668d-dzgpd": {
+            "numeric_index_bytes": 13200000.0,
+            "rss_bytes": 47382528.0
+          }
+        },
+        {
+          "shard-0-677884668d-2fxld": {
+            "numeric_index_bytes": 13200000.0,
+            "rss_bytes": 47644672.0
+          },
+          "shard-0-677884668d-dzgpd": {
+            "numeric_index_bytes": 13200000.0,
+            "rss_bytes": 47513600.0
+          }
+        },
+        {
+          "shard-0-677884668d-2fxld": {
+            "numeric_index_bytes": 13200000.0,
+            "rss_bytes": 47644672.0
+          },
+          "shard-0-677884668d-dzgpd": {
+            "numeric_index_bytes": 13200000.0,
+            "rss_bytes": 47513600.0
+          }
+        }
+      ],
+      "name": "E2-s1",
+      "summary": {
+        "achieved_qps": {
+          "max": 20.074440038550954,
+          "median": 20.074184751976475,
+          "min": 20.07155307957337
+        },
+        "errors_per_trial": [
+          {},
+          {},
+          {}
+        ],
+        "max_ms": {
+          "max": 23.411,
+          "median": 21.155,
+          "min": 19.533
+        },
+        "offered_qps": {
+          "max": 20,
+          "median": 20,
+          "min": 20
+        },
+        "p50_ms": {
+          "max": 12.227,
+          "median": 11.904,
+          "min": 11.575
+        },
+        "p95_ms": {
+          "max": 16.711,
+          "median": 15.436,
+          "min": 15.149
+        },
+        "p99_ms": {
+          "max": 22.945,
+          "median": 19.604,
+          "min": 17.555
+        },
+        "partial_per_trial": [
+          0,
+          0,
+          0
+        ],
+        "successful_qps": {
+          "max": 20.074440038550954,
+          "median": 20.074184751976475,
+          "min": 20.07155307957337
+        }
+      },
+      "trials": [
+        "phase5-bench-isolated-retry-trials/E2-s1-1.json",
+        "phase5-bench-isolated-retry-trials/E2-s1-2.json",
+        "phase5-bench-isolated-retry-trials/E2-s1-3.json"
+      ]
+    },
+    {
+      "deployment": {
+        "balance": "round_robin",
+        "cluster_ip": false,
+        "context": "kind-rae-serving",
+        "coordinator_replicas": 2,
+        "export": "C:\\Users\\Xiaorui Zhang\\Documents\\ST4001\\github\\rae-feature-compression-benchmark\\serving_exports\\export-278e69a7e3e8abde7df14cbbfa2d4b151f4fe4a5367bdd5b9176422064320212",
+        "image": "rae-serving:local",
+        "max_concurrent_searches": 2,
+        "namespace": "rae-serving",
+        "node_image": "kindest/node:v1.35.0",
+        "replicas_per_shard": 2,
+        "total_shard_cpu_limit": 4,
+        "workers": 2
+      },
+      "memory_snapshots": [
+        {
+          "shard-0-6c9b46d669-4k726": {
+            "numeric_index_bytes": 6600000.0,
+            "rss_bytes": 31653888.0
+          },
+          "shard-0-6c9b46d669-9ckzx": {
+            "numeric_index_bytes": 6600000.0,
+            "rss_bytes": 31850496.0
+          },
+          "shard-1-5d85bbd794-tr9wr": {
+            "numeric_index_bytes": 6600000.0,
+            "rss_bytes": 31457280.0
+          },
+          "shard-1-5d85bbd794-wkfg5": {
+            "numeric_index_bytes": 6600000.0,
+            "rss_bytes": 31457280.0
+          }
+        },
+        {
+          "shard-0-6c9b46d669-4k726": {
+            "numeric_index_bytes": 6600000.0,
+            "rss_bytes": 31653888.0
+          },
+          "shard-0-6c9b46d669-9ckzx": {
+            "numeric_index_bytes": 6600000.0,
+            "rss_bytes": 31850496.0
+          },
+          "shard-1-5d85bbd794-tr9wr": {
+            "numeric_index_bytes": 6600000.0,
+            "rss_bytes": 31588352.0
+          },
+          "shard-1-5d85bbd794-wkfg5": {
+            "numeric_index_bytes": 6600000.0,
+            "rss_bytes": 31457280.0
+          }
+        },
+        {
+          "shard-0-6c9b46d669-4k726": {
+            "numeric_index_bytes": 6600000.0,
+            "rss_bytes": 31653888.0
+          },
+          "shard-0-6c9b46d669-9ckzx": {
+            "numeric_index_bytes": 6600000.0,
+            "rss_bytes": 31981568.0
+          },
+          "shard-1-5d85bbd794-tr9wr": {
+            "numeric_index_bytes": 6600000.0,
+            "rss_bytes": 31588352.0
+          },
+          "shard-1-5d85bbd794-wkfg5": {
+            "numeric_index_bytes": 6600000.0,
+            "rss_bytes": 31588352.0
+          }
+        }
+      ],
+      "name": "E2-s2",
+      "summary": {
+        "achieved_qps": {
+          "max": 20.083108723845367,
+          "median": 20.081452782259174,
+          "min": 20.07821408060457
+        },
+        "errors_per_trial": [
+          {},
+          {},
+          {}
+        ],
+        "max_ms": {
+          "max": 22.341,
+          "median": 21.729,
+          "min": 21.188
+        },
+        "offered_qps": {
+          "max": 20,
+          "median": 20,
+          "min": 20
+        },
+        "p50_ms": {
+          "max": 10.073,
+          "median": 9.932,
+          "min": 9.641
+        },
+        "p95_ms": {
+          "max": 15.694,
+          "median": 13.964,
+          "min": 13.761
+        },
+        "p99_ms": {
+          "max": 18.979,
+          "median": 18.799,
+          "min": 18.575
+        },
+        "partial_per_trial": [
+          0,
+          0,
+          0
+        ],
+        "successful_qps": {
+          "max": 20.083108723845367,
+          "median": 20.081452782259174,
+          "min": 20.07821408060457
+        }
+      },
+      "trials": [
+        "phase5-bench-isolated-retry-trials/E2-s2-1.json",
+        "phase5-bench-isolated-retry-trials/E2-s2-2.json",
+        "phase5-bench-isolated-retry-trials/E2-s2-3.json"
+      ]
+    }
+  ],
+  "notes": [
+    "Three independent measured windows per case; warmup excluded. Short local pilot, not production capacity.",
+    "Synthetic dimension-64/128 workloads are dimension-matched Gaussian data, not learned PCA features.",
+    "50,000 synthetic rows chosen to limit memory pressure on the shared 32 GiB laptop.",
+    "Existing thesis and Python benchmark results are not modified."
+  ],
+  "precheck_attempts": [
+    {
+      "criteria": "median CPU <=15%; free host memory >=1.5 GiB; no StepWise containers",
+      "median_cpu_percent": 14.092664092664098,
+      "minimum_free_memory_kib": 3676656
+    }
+  ]
+}

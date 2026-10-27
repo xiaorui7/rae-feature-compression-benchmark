@@ -1,0 +1,61 @@
+{
+  "client_loadgen_sha256": "fca93a4ebe940331b94ad6ad998523cd26200ec30c9c21afd68714b5c0b7bbbc",
+  "docker_cpus": 16,
+  "docker_memory_bytes": 16470925312,
+  "docker_server": "29.8.1",
+  "go": "go version go1.26.2 windows/amd64",
+  "host_samples": [
+    {
+      "collector": "GetSystemTimes delta over two seconds; GlobalMemoryStatusEx",
+      "cpu": "Intel(R) Core(TM) Ultra 9 285H",
+      "cpu_percent": 13.495145631067961,
+      "free_memory_kib": 4770116,
+      "logical_cpus": 16,
+      "memory_kib": 32961892
+    },
+    {
+      "collector": "GetSystemTimes delta over two seconds; GlobalMemoryStatusEx",
+      "cpu": "Intel(R) Core(TM) Ultra 9 285H",
+      "cpu_percent": 15.804878048780491,
+      "free_memory_kib": 4789664,
+      "logical_cpus": 16,
+      "memory_kib": 32961892
+    },
+    {
+      "collector": "GetSystemTimes delta over two seconds; GlobalMemoryStatusEx",
+      "cpu": "Intel(R) Core(TM) Ultra 9 285H",
+      "cpu_percent": 14.376218323586743,
+      "free_memory_kib": 4759348,
+      "logical_cpus": 16,
+      "memory_kib": 32961892
+    }
+  ],
+  "idle_check": {
+    "criteria": "median CPU <=15%; free host memory >=1.5 GiB; no StepWise containers",
+    "median_cpu_percent": 14.376218323586743,
+    "minimum_free_memory_kib": 4759348
+  },
+  "image_id": "sha256:71c3bdfa0251813ddb3e02bfaec1d46cb2929a409ca77f820a874a37ef3b2906",
+  "kind": "kind v0.33.0 go1.26.7 windows/amd64",
+  "running_containers": [
+    "rae-serving-control-plane"
+  ],
+  "scope": "Single Windows host, Docker Desktop WSL2, single-node kind; loopback kubectl port-forward client path",
+  "source_commit": "6e5d9f057bdb07dd3b09b54e394d60b8ff90fa38",
+  "working_tree": [
+    " M docs/SERVING_EVIDENCE.md",
+    " M scripts/serving_bench.py",
+    " M scripts/serving_kind.py",
+    " M serving/cmd/loadgen/main.go",
+    "?? benchmarks/serving/phase5-bench-idlechecked-trials/",
+    "?? benchmarks/serving/phase5-bench-idlechecked.json",
+    "?? benchmarks/serving/phase5-bench-isolated-retry-trials/",
+    "?? benchmarks/serving/phase5-bench-isolated-retry.json",
+    "?? benchmarks/serving/phase5-bench-isolated-trials/",
+    "?? benchmarks/serving/phase5-bench-isolated.json",
+    "?? benchmarks/serving/phase5-bench-trials/",
+    "?? benchmarks/serving/phase5-bench.json",
+    "?? benchmarks/serving/phase5-version-isolation-verification.json",
+    "?? serving/cmd/loadgen/main_test.go"
+  ]
+}

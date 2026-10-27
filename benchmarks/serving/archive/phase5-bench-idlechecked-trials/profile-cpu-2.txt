@@ -1,0 +1,21 @@
+File: shard
+Build ID: de5a23352b54fb056a19eef79262b0155df57ece
+Type: cpu
+Time: 2026-10-27 16:24:24 EDT
+Duration: 3s, Total samples = 2.78s (92.66%)
+Showing nodes accounting for 2.58s, 92.81% of 2.78s total
+Dropped 90 nodes (cum <= 0.01s)
+Showing top 12 nodes out of 78
+      flat  flat%   sum%        cum   cum%
+     1.26s 45.32% 45.32%      2.47s 88.85%  github.com/xiaorui7/rae-feature-compression-benchmark/serving/internal/index.(*Index).Search.func2
+     0.91s 32.73% 78.06%      0.92s 33.09%  github.com/xiaorui7/rae-feature-compression-benchmark/serving/internal/format.(*Vectors).Value (inline)
+     0.08s  2.88% 80.94%      0.08s  2.88%  github.com/xiaorui7/rae-feature-compression-benchmark/serving/internal/index.(*Index).Dim (inline)
+     0.07s  2.52% 83.45%      0.14s  5.04%  github.com/xiaorui7/rae-feature-compression-benchmark/serving/internal/topk.(*Heap).Add
+     0.06s  2.16% 85.61%      0.06s  2.16%  github.com/xiaorui7/rae-feature-compression-benchmark/serving/internal/topk.Better (inline)
+     0.06s  2.16% 87.77%      0.06s  2.16%  runtime.asyncPreempt
+     0.05s  1.80% 89.57%      0.05s  1.80%  internal/runtime/syscall/linux.Syscall6
+     0.03s  1.08% 90.65%      0.03s  1.08%  runtime.futex
+     0.02s  0.72% 91.37%      0.02s  0.72%  runtime.step
+     0.02s  0.72% 92.09%      0.02s  0.72%  sync.(*poolDequeue).popHead
+     0.01s  0.36% 92.45%      0.03s  1.08%  golang.org/x/net/http2/hpack.(*Encoder).searchTable
+     0.01s  0.36% 92.81%      0.05s  1.80%  google.golang.org/grpc/internal/transport.(*framer).readFrame

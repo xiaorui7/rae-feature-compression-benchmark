@@ -1,6 +1,6 @@
 # Project Guide
 
-This guide explains the repository from an engineering perspective. Start here if you need to understand the project well enough to modify it or discuss it in an interview.
+This guide explains the offline pipeline from an engineering perspective. Start here to understand its components, data flow and validation rules. The online service is covered in [the serving walkthrough](docs/SERVING_WALKTHROUGH.md).
 
 ## 1. The problem
 
@@ -99,7 +99,7 @@ The unit tests cover tensor transforms, cache invalidation, compressor serializa
 
 The tests intentionally do not download official weights. A real extraction run is an environment-dependent benchmark and must be executed separately with the upstream assets.
 
-## 8. How to explain it in an interview
+## 8. Offline pipeline summary
 
 Use this short structure:
 
@@ -110,7 +110,7 @@ Use this short structure:
 5. **Result:** the checked-in run selected PCA-64 under the configured tolerance and reduced serialized deployment storage from 15.78 MB to 1.90 MB, with documented task and hardware caveats.
 6. **Next step:** evaluate an approximate index and a task-specific dataset before making production recommendations.
 
-Do not describe this as a deployed service, distributed system, database, or full RAE-DiT trainer. The strongest honest story is a carefully designed data and benchmarking pipeline with reproducibility and validation safeguards.
+The offline pipeline is a data-processing and benchmarking system, not a full RAE-DiT trainer. The separate Go retrieval service has local Compose/kind validation, not a public production deployment.
 
 ## 9. Good first changes
 

@@ -1,0 +1,17 @@
+{
+  "arch": "amd64",
+  "data_status": "actual_measurement",
+  "export_id": "7bd0cdb0f5677083dbe092d54a37c6c02868288d64dcac894252a33141948c7f",
+  "go_version": "go1.26.2",
+  "id_mismatches": 0,
+  "max_abs_score_difference": 2.220446049250313e-16,
+  "method": "full_fp16_storage",
+  "os": "windows",
+  "precision_delta": 1.4432899320127035e-15,
+  "python_float32_precision_at_10": 0.9503499999999999,
+  "query_count": 2000,
+  "score_tolerance": 1e-12,
+  "service_precision_at_10": 0.9503500000000014,
+  "split": "test",
+  "status": "passed"
+}

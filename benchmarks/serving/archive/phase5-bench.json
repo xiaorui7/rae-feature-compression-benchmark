@@ -1,0 +1,56 @@
+{
+  "action": "bench",
+  "blocked": "Host idle/memory prerequisite not met; no benchmark was run",
+  "complete": false,
+  "environment": {
+    "docker_cpus": 16,
+    "docker_memory_bytes": 16470925312,
+    "docker_server": "29.8.1",
+    "go": "go version go1.26.2 windows/amd64",
+    "host_samples": [
+      {
+        "cpu": "Intel(R) Core(TM) Ultra 9 285H",
+        "cpu_percent": 45,
+        "free_memory_kib": 2910956,
+        "logical_cpus": 16,
+        "memory_kib": 32961892
+      },
+      {
+        "cpu": "Intel(R) Core(TM) Ultra 9 285H",
+        "cpu_percent": 28,
+        "free_memory_kib": 2912564,
+        "logical_cpus": 16,
+        "memory_kib": 32961892
+      },
+      {
+        "cpu": "Intel(R) Core(TM) Ultra 9 285H",
+        "cpu_percent": 25,
+        "free_memory_kib": 2902392,
+        "logical_cpus": 16,
+        "memory_kib": 32961892
+      }
+    ],
+    "idle_check": {
+      "criteria": "median CPU <=15%; free host memory >=1.5 GiB; no StepWise containers",
+      "median_cpu_percent": 28,
+      "minimum_free_memory_kib": 2902392
+    },
+    "image_id": "sha256:d15630aa289d10da924c44492dbda6c5eab13bafcd56236c2f2636c8788c224c",
+    "kind": "kind v0.33.0 go1.26.7 windows/amd64",
+    "running_containers": [
+      "rae-serving-control-plane"
+    ],
+    "scope": "Single Windows host, Docker Desktop WSL2, single-node kind; loopback kubectl port-forward client path",
+    "source_commit": "990a2b8b56e46841c8f8a4690211270c82c6f238",
+    "working_tree": [
+      "?? scripts/serving_bench.py"
+    ]
+  },
+  "experiments": [],
+  "notes": [
+    "Three independent measured windows per case; warmup excluded. Short local pilot, not production capacity.",
+    "Synthetic dimension-64/128 workloads are dimension-matched Gaussian data, not learned PCA features.",
+    "50,000 synthetic rows chosen to limit memory pressure on the shared 32 GiB laptop.",
+    "Existing thesis and Python benchmark results are not modified."
+  ]
+}

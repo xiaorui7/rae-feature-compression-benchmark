@@ -1,0 +1,59 @@
+{
+  "client_loadgen_sha256": "fca93a4ebe940331b94ad6ad998523cd26200ec30c9c21afd68714b5c0b7bbbc",
+  "docker_cpus": 16,
+  "docker_memory_bytes": 16470925312,
+  "docker_server": "29.8.1",
+  "go": "go version go1.26.2 windows/amd64",
+  "host_samples": [
+    {
+      "collector": "GetSystemTimes delta over two seconds; GlobalMemoryStatusEx",
+      "cpu": "Intel(R) Core(TM) Ultra 9 285H",
+      "cpu_percent": 7.6060458313018,
+      "free_memory_kib": 4634032,
+      "logical_cpus": 16,
+      "memory_kib": 32961892
+    },
+    {
+      "collector": "GetSystemTimes delta over two seconds; GlobalMemoryStatusEx",
+      "cpu": "Intel(R) Core(TM) Ultra 9 285H",
+      "cpu_percent": 10.137120470127325,
+      "free_memory_kib": 4591108,
+      "logical_cpus": 16,
+      "memory_kib": 32961892
+    },
+    {
+      "collector": "GetSystemTimes delta over two seconds; GlobalMemoryStatusEx",
+      "cpu": "Intel(R) Core(TM) Ultra 9 285H",
+      "cpu_percent": 9.844054580896689,
+      "free_memory_kib": 4683344,
+      "logical_cpus": 16,
+      "memory_kib": 32961892
+    }
+  ],
+  "idle_check": {
+    "criteria": "median CPU <=15%; free host memory >=1.5 GiB; no StepWise containers",
+    "median_cpu_percent": 9.844054580896689,
+    "minimum_free_memory_kib": 4591108
+  },
+  "image_id": "sha256:71c3bdfa0251813ddb3e02bfaec1d46cb2929a409ca77f820a874a37ef3b2906",
+  "kind": "kind v0.33.0 go1.26.7 windows/amd64",
+  "running_containers": [
+    "rae-serving-control-plane"
+  ],
+  "scope": "Single Windows host, Docker Desktop WSL2, single-node kind; loopback kubectl port-forward client path",
+  "source_commit": "84aaa0e132e6bc456702267e1fdc7ef4114d8eaa",
+  "working_tree": [
+    " M scripts/serving_bench.py",
+    "?? benchmarks/serving/phase5-bench-idlechecked-trials/",
+    "?? benchmarks/serving/phase5-bench-idlechecked.json",
+    "?? benchmarks/serving/phase5-bench-isolated-retry-trials/",
+    "?? benchmarks/serving/phase5-bench-isolated-retry.json",
+    "?? benchmarks/serving/phase5-bench-isolated-trials/",
+    "?? benchmarks/serving/phase5-bench-isolated.json",
+    "?? benchmarks/serving/phase5-bench-trials/",
+    "?? benchmarks/serving/phase5-bench.json",
+    "?? benchmarks/serving/phase5-performance-trials/",
+    "?? benchmarks/serving/phase5-performance.json",
+    "?? benchmarks/serving/phase5-version-isolation-verification.json"
+  ]
+}

@@ -1,0 +1,48 @@
+name: rae-serving
+x-shard: &shard
+  image: rae-serving:local
+  command: ["/bin/shard", "--export=/data", "--listen=0.0.0.0:9090", "--admin=0.0.0.0:9091", "--workers=2", "--max-concurrent-searches=2"]
+  volumes:
+    - ${EXPORT_DIR:?set EXPORT_DIR}:/data:ro
+  cpus: 1.0
+  mem_limit: 512m
+  healthcheck:
+    test: ["CMD", "/bin/healthcheck", "http://127.0.0.1:9091/readyz"]
+    interval: 2s
+    timeout: 2s
+    retries: 20
+    start_period: 10s
+  stop_grace_period: 15s
+services:
+  shard-0-a:
+    <<: *shard
+    build:
+      context: ../..
+      dockerfile: serving/Dockerfile
+  shard-0-b:
+    <<: *shard
+  shard-1-a:
+    <<: *shard
+    command: ["/bin/shard", "--export=/data", "--shard-index=1", "--listen=0.0.0.0:9090", "--admin=0.0.0.0:9091", "--workers=2", "--max-concurrent-searches=2"]
+  shard-1-b:
+    <<: *shard
+    command: ["/bin/shard", "--export=/data", "--shard-index=1", "--listen=0.0.0.0:9090", "--admin=0.0.0.0:9091", "--workers=2", "--max-concurrent-searches=2"]
+  coordinator:
+    image: rae-serving:local
+    command: ["/bin/coordinator", "--config=/config/coordinator.json", "--listen=0.0.0.0:8080", "--shard-timeout=1s", "--request-timeout=3s"]
+    volumes:
+      - ${COORDINATOR_CONFIG:?set COORDINATOR_CONFIG}:/config/coordinator.json:ro
+    ports: ["127.0.0.1:18080:8080"]
+    cpus: 1.0
+    mem_limit: 256m
+    depends_on:
+      shard-0-a: {condition: service_healthy}
+      shard-0-b: {condition: service_healthy}
+      shard-1-a: {condition: service_healthy}
+      shard-1-b: {condition: service_healthy}
+    healthcheck:
+      test: ["CMD", "/bin/healthcheck", "http://127.0.0.1:8080/readyz"]
+      interval: 2s
+      timeout: 2s
+      retries: 20
+    stop_grace_period: 15s

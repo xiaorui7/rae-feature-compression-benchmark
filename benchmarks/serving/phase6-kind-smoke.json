@@ -1,0 +1,35 @@
+{
+  "arch": "amd64",
+  "data_status": "synthetic",
+  "export_id": "278e69a7e3e8abde7df14cbbfa2d4b151f4fe4a5367bdd5b9176422064320212",
+  "go_version": "go1.26.2",
+  "id_mismatches": 0,
+  "max_abs_score_difference": 4.440892098500626e-16,
+  "method": null,
+  "os": "windows",
+  "query_count": 64,
+  "score_tolerance": 1e-12,
+  "split": "test",
+  "status": "passed",
+  "deployment": {
+    "export": "C:\\Users\\Xiaorui Zhang\\Documents\\ST4001\\github\\rae-feature-compression-benchmark\\serving_exports\\export-278e69a7e3e8abde7df14cbbfa2d4b151f4fe4a5367bdd5b9176422064320212",
+    "workers": 2,
+    "max_concurrent_searches": 2,
+    "total_shard_cpu_limit": 4,
+    "replicas_per_shard": 2,
+    "coordinator_replicas": 2,
+    "balance": "round_robin",
+    "cluster_ip": false,
+    "image": "rae-serving:local",
+    "image_id": "sha256:fc5be73a51da61dd6b0173fad1cbf8148229a43211573789a03b73c05ca18c2f",
+    "context": "kind-rae-serving",
+    "namespace": "rae-serving",
+    "node_image": "kindest/node:v1.35.0"
+  },
+  "per_pod_query_delta": {
+    "shard-0-769c46f894-jxsvr": 16.0,
+    "shard-0-769c46f894-t9wm5": 48.0,
+    "shard-1-6dfb6df48b-66f2c": 16.0,
+    "shard-1-6dfb6df48b-ghxds": 48.0
+  }
+}

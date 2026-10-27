@@ -1,6 +1,32 @@
-# RAE Feature Compression Benchmark
+# RAE Feature Compression & Sharded Retrieval Service
 
-A config-driven Python benchmark for reducing the storage and exact-search cost of high-dimensional Representation Autoencoder (RAE) features while measuring retrieval and classification quality.
+A Python pipeline compresses high-dimensional Representation Autoencoder (RAE) features offline, and a Go service searches the exported vectors online using replicated gRPC shards and an HTTP coordinator. The benchmark measures storage, retrieval quality, correctness, latency, memory and failure behavior; image encoding and compression stay outside the online request path.
+
+```mermaid
+flowchart LR
+  I[Images] --> E[Frozen RAE encoder + pooling]
+  E --> P[Train-only compression + verified export]
+  P --> S0[Shard 0: two replicas]
+  P --> S1[Shard 1: two replicas]
+  C[HTTP vector query] --> H[Coordinator: validation + deadline]
+  H -->|gRPC round_robin| S0
+  H -->|gRPC round_robin| S1
+  S0 --> M[Deterministic global top-k merge]
+  S1 --> M
+  M --> C
+```
+
+| Check | Measured result | Workload and limits |
+|---|---|---|
+| Exact correctness | 72,000 query checks, 0 ID mismatches | 2,000 unique real queries, four representations, 1/2/4 shards, three repetitions |
+| Replica deletion / rolling restart | 0/540 failed requests for each event type | Three eighteen-second windows per event, 10 offered QPS |
+| Closed-loop throughput | **1,026 QPS @ 31 ms p99** (rounded medians) | **Synthetic 50k x64 FP32**, two shards x two replicas, four total shard CPUs, eight clients, three six-second windows |
+| E6 replica distribution | **160/0 vs 80/80** requests per shard | ClusterIP + pick_first vs headless + round_robin; includes warmup, three trials |
+
+These are single-host Windows/WSL2 kind measurements, not production capacity or
+availability guarantees. Trial ranges, limitations and raw artifacts are in
+[serving evidence](docs/SERVING_EVIDENCE.md) and the
+[measurement index](benchmarks/serving/README.md).
 
 The project extracts one pooled feature vector per image from the official frozen RAE Stage-1 model, fits several compression methods on the training split, evaluates them on fixed validation/test splits, and writes machine-readable results plus a Markdown report. It is a feature-system benchmark, not a full Diffusion Transformer trainer.
 
@@ -73,6 +99,77 @@ The checked-in `benchmark_small` report is an actual local measurement on 5,000 
 
 This run reduced measured serialized deployment storage by 87.9%. Timing is a single-machine benchmark, and class Precision@10 is a coarse CIFAR-10 retrieval proxy. PCA-64 retained only 0.644 neighbor overlap@10 against the full representation, so the recommendation should not be generalized to fine-grained visual search without a task-specific evaluation. See [the complete report](examples/benchmark-small-report.md) and [protocol](docs/protocol.md).
 
+## Online serving
+
+The static Go service searches the
+exported vectors. Images are encoded and compressed offline; the online API
+accepts vectors and returns neighbor IDs/scores. PyTorch is outside the request
+path. The original Python benchmark and measured example above are unchanged.
+
+Search is exact cosine with deterministic score/ID ordering, bounded scoring
+concurrency, one alternate-replica retry, a shared overload retry budget, and
+explicit partial-result policy. FP16 values stay compressed in server memory.
+Prometheus metrics, JSON request IDs, health probes and opt-in pprof support
+verification and operation.
+
+Build with Go 1.26.2 (generated protobuf is committed):
+
+```bash
+cd serving
+go build -o bin/ ./cmd/...
+go test ./...
+cd ..
+```
+
+Docker Compose end-to-end check, after the Python quick start:
+
+```powershell
+python -m featurebench smoke
+$run = (Get-ChildItem featurebench_runs -Directory -Filter 'smoke-*' | Select-Object -First 1).FullName
+python scripts/serving_e2e.py --run-dir $run --methods full_fp32 --shard-counts 2 --compose --output serving_exports/compose-check.json
+```
+
+The helper creates a two-shard/two-replica stack, checks the oracle, runs a short
+load check and always tears it down. On Linux, pass the smoke directory printed
+by `featurebench smoke` as `--run-dir`. Docker CLI/Compose must be available.
+
+For a persistent local kind demo, install kind v0.33.0 and kubectl, then:
+
+```powershell
+$export = python -m featurebench export-synthetic --count 50000 --dim 64 --dtype float32 --shards 2 --seed 42 --query-count 64 --out serving_exports
+python scripts/serving_kind.py up --export $export
+python scripts/serving_kind.py verify
+kubectl --context kind-rae-serving -n rae-serving port-forward service/coordinator 8080:8080 --address 127.0.0.1
+```
+
+The export command prints a directory. Bash equivalents are:
+
+```bash
+export_dir=$(python -m featurebench export-synthetic --count 50000 --dim 64 --dtype float32 --shards 2 --seed 42 --query-count 64 --out serving_exports)
+python scripts/serving_kind.py up --export "$export_dir"
+python scripts/serving_kind.py verify
+```
+
+`verify` handles its own temporary port-forward and writes an ignored local report. Stop
+the manual port-forward with Ctrl+C. `python scripts/serving_kind.py down`
+removes only this named demo cluster. See [deployment details](deploy/kind/README.md).
+
+Measured on one Windows/WSL2 Docker host, with three trials per case:
+
+| Check | Observed result | Scope |
+|---|---|---|
+| Exact correctness | 0 ID mismatches across 72,000 query checks | 2,000 unique actual queries, four representations, 1/2/4 shards, three repetitions |
+| Closed-loop load | Median 1,025.77 QPS, 31.125 ms p99 | Synthetic 50k x64, two shards x two replicas, four total shard CPUs, eight clients, three six-second windows |
+| FP16 numeric buffers | 49.87% smaller; p99 55.575 vs 32.970 ms | Synthetic 50k x768, same four-CPU quota; decoding trades memory for CPU |
+| Replica deletion / rolling restart | 0 failed requests out of 540 for each event type | Three eighteen-second windows per event, 10 offered QPS |
+| Replica distribution | 80/80 vs 160/0 | Headless round_robin vs ClusterIP pick_first; includes warmup |
+
+These are local pilots, not production SLA or multi-node scaling claims. Serving
+request latency is not directly comparable to the offline batch-search timing
+above. Ranges, RSS, negative results, superseded attempts and exact environments
+are in [serving evidence](docs/SERVING_EVIDENCE.md) and the
+[raw evidence index](benchmarks/serving/README.md).
+
 ## Engineering features
 
 - Staged CLI (`extract`, `fit`, `evaluate`, `recommend`, `report`) with resumable, content-addressed run directories.
@@ -90,7 +187,11 @@ configs/               smoke, pilot, and benchmark-small protocols
 tests/                 focused unit and end-to-end smoke tests
 docs/                  protocol, design decisions, and research boundaries
 examples/              checked-in measured report and recommendation
-.github/workflows/     CPU test automation
+.github/workflows/     Python, Go race/vet/format and Compose CI
+serving/               Go shard/coordinator/loadgen/verify, protobuf and Dockerfile
+deploy/                Compose and generated kind resources
+scripts/serving_*.py    export-to-service verification and repeated measurements
+benchmarks/serving/     raw measured results, profiles and retained failed attempts
 ```
 
 ## Boundaries
@@ -102,10 +203,12 @@ examples/              checked-in measured report and recommendation
 
 ## Documentation
 
-- [Project guide](PROJECT_GUIDE.md): architecture, data flow, and interview walkthrough.
+- [Project guide](PROJECT_GUIDE.md): architecture, data flow, and implementation guide.
 - [Evaluation protocol](docs/protocol.md): exact definitions and measurement boundaries.
 - [Design decisions](docs/design.md): trade-offs behind caching, search, and recommendation.
 - [Related work and attribution](docs/related_work.md): upstream ownership and research scope.
+- [Serving design](docs/SERVING_DESIGN.md): protocol, concurrency, replicas and limits.
+- [Serving walkthrough](docs/SERVING_WALKTHROUGH.md): full request path and design questions.
 
 ## License
 

@@ -1,0 +1,542 @@
+{
+  "action": "failures",
+  "complete": true,
+  "environment": {
+    "client_loadgen_sha256": "fca93a4ebe940331b94ad6ad998523cd26200ec30c9c21afd68714b5c0b7bbbc",
+    "docker_cpus": 16,
+    "docker_memory_bytes": 16470925312,
+    "docker_server": "29.8.1",
+    "go": "go version go1.26.2 windows/amd64",
+    "host_samples": [
+      {
+        "collector": "GetSystemTimes delta over two seconds; GlobalMemoryStatusEx",
+        "cpu": "Intel(R) Core(TM) Ultra 9 285H",
+        "cpu_percent": 7.6060458313018,
+        "free_memory_kib": 4634032,
+        "logical_cpus": 16,
+        "memory_kib": 32961892
+      },
+      {
+        "collector": "GetSystemTimes delta over two seconds; GlobalMemoryStatusEx",
+        "cpu": "Intel(R) Core(TM) Ultra 9 285H",
+        "cpu_percent": 10.137120470127325,
+        "free_memory_kib": 4591108,
+        "logical_cpus": 16,
+        "memory_kib": 32961892
+      },
+      {
+        "collector": "GetSystemTimes delta over two seconds; GlobalMemoryStatusEx",
+        "cpu": "Intel(R) Core(TM) Ultra 9 285H",
+        "cpu_percent": 9.844054580896689,
+        "free_memory_kib": 4683344,
+        "logical_cpus": 16,
+        "memory_kib": 32961892
+      }
+    ],
+    "idle_check": {
+      "criteria": "median CPU <=15%; free host memory >=1.5 GiB; no StepWise containers",
+      "median_cpu_percent": 9.844054580896689,
+      "minimum_free_memory_kib": 4591108
+    },
+    "image_id": "sha256:71c3bdfa0251813ddb3e02bfaec1d46cb2929a409ca77f820a874a37ef3b2906",
+    "kind": "kind v0.33.0 go1.26.7 windows/amd64",
+    "running_containers": [
+      "rae-serving-control-plane"
+    ],
+    "scope": "Single Windows host, Docker Desktop WSL2, single-node kind; loopback kubectl port-forward client path",
+    "source_commit": "84aaa0e132e6bc456702267e1fdc7ef4114d8eaa",
+    "working_tree": [
+      " M scripts/serving_bench.py",
+      "?? benchmarks/serving/phase5-bench-idlechecked-trials/",
+      "?? benchmarks/serving/phase5-bench-idlechecked.json",
+      "?? benchmarks/serving/phase5-bench-isolated-retry-trials/",
+      "?? benchmarks/serving/phase5-bench-isolated-retry.json",
+      "?? benchmarks/serving/phase5-bench-isolated-trials/",
+      "?? benchmarks/serving/phase5-bench-isolated.json",
+      "?? benchmarks/serving/phase5-bench-trials/",
+      "?? benchmarks/serving/phase5-bench.json",
+      "?? benchmarks/serving/phase5-performance-trials/",
+      "?? benchmarks/serving/phase5-performance.json",
+      "?? benchmarks/serving/phase5-version-isolation-verification.json"
+    ]
+  },
+  "experiments": [
+    {
+      "events": [
+        {
+          "approx_event_window_offsets_seconds": [
+            2,
+            10.702999999979511
+          ],
+          "event_after_loadgen_start_seconds": 6,
+          "event_window_p99_ms": 17.861,
+          "measurement_offset_approx_seconds": 4,
+          "observed_event_seconds": 4.702999999979511,
+          "replacement_ready_seconds": 4.702999999979511,
+          "retries_during_run": 0,
+          "victim": "shard-0-6c9b46d669-nww8k"
+        },
+        {
+          "approx_event_window_offsets_seconds": [
+            2,
+            10.98499999998603
+          ],
+          "event_after_loadgen_start_seconds": 6,
+          "event_window_p99_ms": 26.016,
+          "measurement_offset_approx_seconds": 4,
+          "observed_event_seconds": 4.98499999998603,
+          "replacement_ready_seconds": 4.98499999998603,
+          "retries_during_run": 0,
+          "victim": "shard-0-6c9b46d669-l7nwq"
+        },
+        {
+          "approx_event_window_offsets_seconds": [
+            2,
+            10.014999999955762
+          ],
+          "event_after_loadgen_start_seconds": 6,
+          "event_window_p99_ms": 26.639,
+          "measurement_offset_approx_seconds": 4,
+          "observed_event_seconds": 4.014999999955762,
+          "replacement_ready_seconds": 4.014999999955762,
+          "retries_during_run": 0,
+          "victim": "shard-0-6c9b46d669-62655"
+        }
+      ],
+      "name": "E4-replica_kill",
+      "summary": {
+        "achieved_qps": {
+          "max": 9.999854057685502,
+          "median": 9.99971100835186,
+          "min": 9.999550353552435
+        },
+        "errors_per_trial": [
+          {},
+          {},
+          {}
+        ],
+        "max_ms": {
+          "max": 33.288,
+          "median": 32.248,
+          "min": 23.487
+        },
+        "offered_qps": {
+          "max": 10,
+          "median": 10,
+          "min": 10
+        },
+        "p50_ms": {
+          "max": 10.509,
+          "median": 10.219,
+          "min": 9.878
+        },
+        "p95_ms": {
+          "max": 17.612,
+          "median": 16.798,
+          "min": 15.168
+        },
+        "p99_ms": {
+          "max": 25.508,
+          "median": 21.905,
+          "min": 18.088
+        },
+        "partial_per_trial": [
+          0,
+          0,
+          0
+        ],
+        "successful_qps": {
+          "max": 9.999854057685502,
+          "median": 9.99971100835186,
+          "min": 9.999550353552435
+        }
+      }
+    },
+    {
+      "events": [
+        {
+          "approx_event_window_offsets_seconds": [
+            2,
+            14.311999999976251
+          ],
+          "event_after_loadgen_start_seconds": 6,
+          "event_window_p99_ms": 21.325,
+          "measurement_offset_approx_seconds": 4,
+          "observed_event_seconds": 8.311999999976251,
+          "retries_during_run": 0,
+          "rollout_seconds": 8.311999999976251
+        },
+        {
+          "approx_event_window_offsets_seconds": [
+            2,
+            14.5
+          ],
+          "event_after_loadgen_start_seconds": 6,
+          "event_window_p99_ms": 21.136,
+          "measurement_offset_approx_seconds": 4,
+          "observed_event_seconds": 8.5,
+          "retries_during_run": 0,
+          "rollout_seconds": 8.5
+        },
+        {
+          "approx_event_window_offsets_seconds": [
+            2,
+            14.719000000040978
+          ],
+          "event_after_loadgen_start_seconds": 6,
+          "event_window_p99_ms": 23.027,
+          "measurement_offset_approx_seconds": 4,
+          "observed_event_seconds": 8.719000000040978,
+          "retries_during_run": 0,
+          "rollout_seconds": 8.719000000040978
+        }
+      ],
+      "name": "E5-rollout",
+      "summary": {
+        "achieved_qps": {
+          "max": 9.999885445756727,
+          "median": 9.999745006502335,
+          "min": 9.999744228764282
+        },
+        "errors_per_trial": [
+          {},
+          {},
+          {}
+        ],
+        "max_ms": {
+          "max": 26.789,
+          "median": 26.107,
+          "min": 23.899
+        },
+        "offered_qps": {
+          "max": 10,
+          "median": 10,
+          "min": 10
+        },
+        "p50_ms": {
+          "max": 10.294,
+          "median": 10.087,
+          "min": 9.718
+        },
+        "p95_ms": {
+          "max": 18.19,
+          "median": 17.254,
+          "min": 16.555
+        },
+        "p99_ms": {
+          "max": 23.027,
+          "median": 21.325,
+          "min": 21.136
+        },
+        "partial_per_trial": [
+          0,
+          0,
+          0
+        ],
+        "successful_qps": {
+          "max": 9.999885445756727,
+          "median": 9.999745006502335,
+          "min": 9.999744228764282
+        }
+      }
+    },
+    {
+      "events": [
+        {
+          "approx_event_window_offsets_seconds": [
+            2,
+            16.594000000040978
+          ],
+          "event_after_loadgen_start_seconds": 6,
+          "event_window_p99_ms": 18.416,
+          "measurement_offset_approx_seconds": 4,
+          "observed_event_seconds": 10.594000000040978,
+          "policies": [
+            {
+              "allow_partial": false,
+              "status": 503
+            },
+            {
+              "allow_partial": true,
+              "response": {
+                "missing_shards": [
+                  0
+                ],
+                "partial": true,
+                "results": [
+                  {
+                    "hits": [
+                      {
+                        "id": "synthetic:gallery:0000032143",
+                        "score": 0.46069835860878655
+                      },
+                      {
+                        "id": "synthetic:gallery:0000047977",
+                        "score": 0.4541798944337857
+                      },
+                      {
+                        "id": "synthetic:gallery:0000032751",
+                        "score": 0.44127953708316614
+                      },
+                      {
+                        "id": "synthetic:gallery:0000007481",
+                        "score": 0.44054504047461235
+                      },
+                      {
+                        "id": "synthetic:gallery:0000041569",
+                        "score": 0.42135143241344375
+                      },
+                      {
+                        "id": "synthetic:gallery:0000031393",
+                        "score": 0.41584970095721413
+                      },
+                      {
+                        "id": "synthetic:gallery:0000005451",
+                        "score": 0.4156128692516866
+                      },
+                      {
+                        "id": "synthetic:gallery:0000004181",
+                        "score": 0.4149718929450136
+                      },
+                      {
+                        "id": "synthetic:gallery:0000011951",
+                        "score": 0.412613800009937
+                      },
+                      {
+                        "id": "synthetic:gallery:0000004891",
+                        "score": 0.4119683910578201
+                      }
+                    ],
+                    "id": "policy-test"
+                  }
+                ]
+              },
+              "status": 200
+            }
+          ],
+          "retries_during_run": 0
+        },
+        {
+          "approx_event_window_offsets_seconds": [
+            2,
+            16.79700000002049
+          ],
+          "event_after_loadgen_start_seconds": 6,
+          "event_window_p99_ms": 20.368,
+          "measurement_offset_approx_seconds": 4,
+          "observed_event_seconds": 10.797000000020489,
+          "policies": [
+            {
+              "allow_partial": false,
+              "status": 503
+            },
+            {
+              "allow_partial": true,
+              "response": {
+                "missing_shards": [
+                  0
+                ],
+                "partial": true,
+                "results": [
+                  {
+                    "hits": [
+                      {
+                        "id": "synthetic:gallery:0000032143",
+                        "score": 0.46069835860878655
+                      },
+                      {
+                        "id": "synthetic:gallery:0000047977",
+                        "score": 0.4541798944337857
+                      },
+                      {
+                        "id": "synthetic:gallery:0000032751",
+                        "score": 0.44127953708316614
+                      },
+                      {
+                        "id": "synthetic:gallery:0000007481",
+                        "score": 0.44054504047461235
+                      },
+                      {
+                        "id": "synthetic:gallery:0000041569",
+                        "score": 0.42135143241344375
+                      },
+                      {
+                        "id": "synthetic:gallery:0000031393",
+                        "score": 0.41584970095721413
+                      },
+                      {
+                        "id": "synthetic:gallery:0000005451",
+                        "score": 0.4156128692516866
+                      },
+                      {
+                        "id": "synthetic:gallery:0000004181",
+                        "score": 0.4149718929450136
+                      },
+                      {
+                        "id": "synthetic:gallery:0000011951",
+                        "score": 0.412613800009937
+                      },
+                      {
+                        "id": "synthetic:gallery:0000004891",
+                        "score": 0.4119683910578201
+                      }
+                    ],
+                    "id": "policy-test"
+                  }
+                ]
+              },
+              "status": 200
+            }
+          ],
+          "retries_during_run": 0
+        },
+        {
+          "approx_event_window_offsets_seconds": [
+            2,
+            16.76600000000326
+          ],
+          "event_after_loadgen_start_seconds": 6,
+          "event_window_p99_ms": 17.042,
+          "measurement_offset_approx_seconds": 4,
+          "observed_event_seconds": 10.76600000000326,
+          "policies": [
+            {
+              "allow_partial": false,
+              "status": 503
+            },
+            {
+              "allow_partial": true,
+              "response": {
+                "missing_shards": [
+                  0
+                ],
+                "partial": true,
+                "results": [
+                  {
+                    "hits": [
+                      {
+                        "id": "synthetic:gallery:0000032143",
+                        "score": 0.46069835860878655
+                      },
+                      {
+                        "id": "synthetic:gallery:0000047977",
+                        "score": 0.4541798944337857
+                      },
+                      {
+                        "id": "synthetic:gallery:0000032751",
+                        "score": 0.44127953708316614
+                      },
+                      {
+                        "id": "synthetic:gallery:0000007481",
+                        "score": 0.44054504047461235
+                      },
+                      {
+                        "id": "synthetic:gallery:0000041569",
+                        "score": 0.42135143241344375
+                      },
+                      {
+                        "id": "synthetic:gallery:0000031393",
+                        "score": 0.41584970095721413
+                      },
+                      {
+                        "id": "synthetic:gallery:0000005451",
+                        "score": 0.4156128692516866
+                      },
+                      {
+                        "id": "synthetic:gallery:0000004181",
+                        "score": 0.4149718929450136
+                      },
+                      {
+                        "id": "synthetic:gallery:0000011951",
+                        "score": 0.412613800009937
+                      },
+                      {
+                        "id": "synthetic:gallery:0000004891",
+                        "score": 0.4119683910578201
+                      }
+                    ],
+                    "id": "policy-test"
+                  }
+                ]
+              },
+              "status": 200
+            }
+          ],
+          "retries_during_run": 0
+        }
+      ],
+      "name": "E4-whole_shard",
+      "summary": {
+        "achieved_qps": {
+          "max": 9.999900612098916,
+          "median": 9.999790671048618,
+          "min": 9.99976250564049
+        },
+        "errors_per_trial": [
+          {
+            "503": 91
+          },
+          {
+            "503": 91
+          },
+          {
+            "503": 90
+          }
+        ],
+        "max_ms": {
+          "max": 27.976,
+          "median": 24.043,
+          "min": 22.916
+        },
+        "offered_qps": {
+          "max": 10,
+          "median": 10,
+          "min": 10
+        },
+        "p50_ms": {
+          "max": 10.456,
+          "median": 9.821,
+          "min": 9.536
+        },
+        "p95_ms": {
+          "max": 16.243,
+          "median": 15.651,
+          "min": 14.834
+        },
+        "p99_ms": {
+          "max": 21.207,
+          "median": 20.368,
+          "min": 18.416
+        },
+        "partial_per_trial": [
+          0,
+          0,
+          0
+        ],
+        "successful_qps": {
+          "max": 4.999950306049458,
+          "median": 4.944340942907372,
+          "min": 4.944327016677798
+        }
+      }
+    }
+  ],
+  "notes": [
+    "Three independent measured windows per case; warmup excluded. Short local pilot, not production capacity.",
+    "Synthetic dimension-64/128 workloads are dimension-matched Gaussian data, not learned PCA features.",
+    "50,000 synthetic rows chosen to limit memory pressure on the shared 32 GiB laptop.",
+    "Existing thesis and Python benchmark results are not modified."
+  ],
+  "precheck_attempts": [
+    {
+      "criteria": "median CPU <=15%; free host memory >=1.5 GiB; no StepWise containers",
+      "median_cpu_percent": 17.348927875243668,
+      "minimum_free_memory_kib": 4431240
+    },
+    {
+      "criteria": "median CPU <=15%; free host memory >=1.5 GiB; no StepWise containers",
+      "median_cpu_percent": 9.844054580896689,
+      "minimum_free_memory_kib": 4591108
+    }
+  ]
+}

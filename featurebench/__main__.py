@@ -11,6 +11,20 @@ from .core import atomic_json
 def main():
     parser = argparse.ArgumentParser(prog="python -m featurebench")
     sub = parser.add_subparsers(dest="command", required=True)
+    p = sub.add_parser("export")
+    p.add_argument("--run-dir", required=True)
+    p.add_argument("--method", required=True)
+    p.add_argument("--shards", type=int, required=True)
+    p.add_argument("--out", required=True)
+    p.add_argument("--queries", default="validation,test")
+    p = sub.add_parser("export-synthetic")
+    p.add_argument("--count", type=int, required=True)
+    p.add_argument("--dim", type=int, required=True)
+    p.add_argument("--dtype", choices=["float32", "float16"], required=True)
+    p.add_argument("--shards", type=int, required=True)
+    p.add_argument("--seed", type=int, default=42)
+    p.add_argument("--out", required=True)
+    p.add_argument("--query-count", type=int, default=100)
     for name in ("smoke", "extract", "fit", "evaluate", "run"):
         p = sub.add_parser(name)
         p.add_argument("--config", default="configs/featurebench_smoke.json" if name == "smoke" else None)
@@ -23,6 +37,19 @@ def main():
     p.add_argument("--max-drop-pp", type=float, default=2)
     p.add_argument("--require-smaller-than-full", action="store_true")
     args = parser.parse_args()
+    if args.command in ("export", "export-synthetic"):
+        from .export import export_run, export_synthetic
+        from threadpoolctl import threadpool_limits
+
+        with threadpool_limits(limits=1):
+            if args.command == "export":
+                result = export_run(args.run_dir, args.method, args.shards, args.out,
+                                    tuple(args.queries.split(",")))
+            else:
+                result = export_synthetic(args.count, args.dim, args.dtype, args.shards,
+                                          args.seed, args.out, args.query_count)
+        print(result)
+        return
     if args.command == "report":
         print(build_report(Path(args.run_dir).resolve()))
         return

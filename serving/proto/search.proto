@@ -1,0 +1,27 @@
+syntax = "proto3";
+package retrieval.v1;
+option go_package = "github.com/xiaorui7/rae-feature-compression-benchmark/serving/proto;searchpb";
+
+service SearchService {
+  rpc Search(SearchRequest) returns (SearchResponse);
+}
+message Query {
+  string id = 1;
+  repeated float values = 2;
+  repeated string exclude_ids = 3;
+}
+message Hit {
+  string id = 1;
+  double score = 2;
+}
+message QueryResult {
+  string id = 1;
+  repeated Hit hits = 2;
+}
+message SearchRequest {
+  repeated Query queries = 1;
+  uint32 k = 2;
+}
+message SearchResponse {
+  repeated QueryResult results = 1;
+}

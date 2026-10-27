@@ -1,0 +1,79 @@
+{
+  "complete": true,
+  "environment": "Windows-10-10.0.26200-SP0",
+  "note": "Correctness only; local Windows teardown uses process termination.",
+  "reports": [
+    {
+      "arch": "amd64",
+      "command": [
+        "C:\\Users\\Xiaorui Zhang\\Documents\\ST4001\\github\\rae-feature-compression-benchmark\\serving\\bin\\verify.exe",
+        "--export",
+        "C:\\Users\\Xiaorui Zhang\\Documents\\ST4001\\github\\rae-feature-compression-benchmark\\serving_exports\\export-540892b3f7c4bce4405fa40de287c414480619da7d3aa11593f0010f34647bb0",
+        "--benchmark-results",
+        "..\\..\\featurebench_runs\\smoke-c7760544a48d\\results.json"
+      ],
+      "data_status": "synthetic",
+      "export_id": "540892b3f7c4bce4405fa40de287c414480619da7d3aa11593f0010f34647bb0",
+      "go_version": "go1.26.2",
+      "id_mismatches": 0,
+      "max_abs_score_difference": 2.220446049250313e-16,
+      "method": "full_fp32",
+      "os": "windows",
+      "precision_delta": 5.551115123125783e-17,
+      "python_float32_precision_at_10": 0.4033333333333333,
+      "query_count": 30,
+      "score_tolerance": 1e-12,
+      "service_precision_at_10": 0.4033333333333334,
+      "split": "test",
+      "status": "passed"
+    },
+    {
+      "arch": "amd64",
+      "command": [
+        "C:\\Users\\Xiaorui Zhang\\Documents\\ST4001\\github\\rae-feature-compression-benchmark\\serving\\bin\\verify.exe",
+        "--export",
+        "C:\\Users\\Xiaorui Zhang\\Documents\\ST4001\\github\\rae-feature-compression-benchmark\\serving_exports\\export-87a8fb366ee3a2500d03debe4f5d072305fbc08d2ab4c5b8ff04ba9673aae70e",
+        "--benchmark-results",
+        "..\\..\\featurebench_runs\\smoke-c7760544a48d\\results.json"
+      ],
+      "data_status": "synthetic",
+      "export_id": "87a8fb366ee3a2500d03debe4f5d072305fbc08d2ab4c5b8ff04ba9673aae70e",
+      "go_version": "go1.26.2",
+      "id_mismatches": 0,
+      "max_abs_score_difference": 1.1102230246251565e-16,
+      "method": "full_fp16_storage",
+      "os": "windows",
+      "precision_delta": 5.551115123125783e-17,
+      "python_float32_precision_at_10": 0.4033333333333333,
+      "query_count": 30,
+      "score_tolerance": 1e-12,
+      "service_precision_at_10": 0.4033333333333334,
+      "split": "test",
+      "status": "passed"
+    },
+    {
+      "arch": "amd64",
+      "command": [
+        "C:\\Users\\Xiaorui Zhang\\Documents\\ST4001\\github\\rae-feature-compression-benchmark\\serving\\bin\\verify.exe",
+        "--export",
+        "C:\\Users\\Xiaorui Zhang\\Documents\\ST4001\\github\\rae-feature-compression-benchmark\\serving_exports\\export-6b51a71c2ef0ff6926fcc222127ceac74aa73c9f137ed57b56a75f58ddd7c94f",
+        "--benchmark-results",
+        "..\\..\\featurebench_runs\\smoke-c7760544a48d\\results.json"
+      ],
+      "data_status": "synthetic",
+      "export_id": "6b51a71c2ef0ff6926fcc222127ceac74aa73c9f137ed57b56a75f58ddd7c94f",
+      "go_version": "go1.26.2",
+      "id_mismatches": 0,
+      "max_abs_score_difference": 2.220446049250313e-16,
+      "method": "pca4",
+      "os": "windows",
+      "precision_delta": 5.551115123125783e-17,
+      "python_float32_precision_at_10": 0.37333333333333324,
+      "query_count": 30,
+      "score_tolerance": 1e-12,
+      "service_precision_at_10": 0.3733333333333333,
+      "split": "test",
+      "status": "passed"
+    }
+  ]
+}

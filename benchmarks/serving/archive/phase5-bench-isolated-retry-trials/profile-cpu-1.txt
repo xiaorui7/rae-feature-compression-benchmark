@@ -1,0 +1,21 @@
+File: shard
+Build ID: de5a23352b54fb056a19eef79262b0155df57ece
+Type: cpu
+Time: 2026-10-27 16:35:11 EDT
+Duration: 3s, Total samples = 2.80s (93.31%)
+Showing nodes accounting for 2.57s, 91.79% of 2.80s total
+Dropped 94 nodes (cum <= 0.01s)
+Showing top 12 nodes out of 82
+      flat  flat%   sum%        cum   cum%
+     1.15s 41.07% 41.07%      2.39s 85.36%  github.com/xiaorui7/rae-feature-compression-benchmark/serving/internal/index.(*Index).Search.func2
+     0.95s 33.93% 75.00%      0.95s 33.93%  github.com/xiaorui7/rae-feature-compression-benchmark/serving/internal/format.(*Vectors).Value (inline)
+     0.13s  4.64% 79.64%      0.13s  4.64%  internal/runtime/syscall/linux.Syscall6
+     0.09s  3.21% 82.86%      0.09s  3.21%  github.com/xiaorui7/rae-feature-compression-benchmark/serving/internal/index.(*Index).Dim (inline)
+     0.06s  2.14% 85.00%      0.12s  4.29%  github.com/xiaorui7/rae-feature-compression-benchmark/serving/internal/topk.(*Heap).Add
+     0.06s  2.14% 87.14%      0.06s  2.14%  runtime.futex
+     0.04s  1.43% 88.57%      0.04s  1.43%  runtime.asyncPreempt
+     0.03s  1.07% 89.64%      0.03s  1.07%  github.com/xiaorui7/rae-feature-compression-benchmark/serving/internal/topk.Better (inline)
+     0.03s  1.07% 90.71%      0.03s  1.07%  runtime.nextFreeFast (inline)
+     0.01s  0.36% 91.07%      0.02s  0.71%  google.golang.org/grpc/internal/transport.(*loopyWriter).writeHeader
+     0.01s  0.36% 91.43%      0.02s  0.71%  google.golang.org/protobuf/internal/impl.(*MessageInfo).unmarshal
+     0.01s  0.36% 91.79%      0.10s  3.57%  net.(*netFD).Write

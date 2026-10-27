@@ -1,0 +1,21 @@
+File: shard
+Build ID: de5a23352b54fb056a19eef79262b0155df57ece
+Type: cpu
+Time: 2026-10-27 16:23:59 EDT
+Duration: 3s, Total samples = 2.81s (93.55%)
+Showing nodes accounting for 2.62s, 93.24% of 2.81s total
+Dropped 78 nodes (cum <= 0.01s)
+Showing top 12 nodes out of 100
+      flat  flat%   sum%        cum   cum%
+     1.34s 47.69% 47.69%      2.46s 87.54%  github.com/xiaorui7/rae-feature-compression-benchmark/serving/internal/index.(*Index).Search.func2
+     0.84s 29.89% 77.58%      0.85s 30.25%  github.com/xiaorui7/rae-feature-compression-benchmark/serving/internal/format.(*Vectors).Value (inline)
+     0.09s  3.20% 80.78%      0.09s  3.20%  internal/runtime/syscall/linux.Syscall6
+     0.07s  2.49% 83.27%      0.14s  4.98%  github.com/xiaorui7/rae-feature-compression-benchmark/serving/internal/topk.(*Heap).Add
+     0.05s  1.78% 85.05%      0.05s  1.78%  runtime.mapaccess1_faststr
+     0.04s  1.42% 86.48%      0.04s  1.42%  github.com/xiaorui7/rae-feature-compression-benchmark/serving/internal/index.(*Index).Dim (inline)
+     0.04s  1.42% 87.90%      0.04s  1.42%  runtime.asyncPreempt
+     0.04s  1.42% 89.32%      0.04s  1.42%  runtime.futex
+     0.03s  1.07% 90.39%      0.03s  1.07%  github.com/xiaorui7/rae-feature-compression-benchmark/serving/internal/topk.Better (inline)
+     0.03s  1.07% 91.46%      0.03s  1.07%  runtime.memmove
+     0.03s  1.07% 92.53%      0.03s  1.07%  runtime.nextFreeFast (inline)
+     0.02s  0.71% 93.24%      0.02s  0.71%  runtime.memclrNoHeapPointers

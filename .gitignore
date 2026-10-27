@@ -7,9 +7,13 @@ venv/
 dist/
 build/
 featurebench_runs/
+serving_exports/
+serving/bin/
 data/
 official_RAE/
 .idea/
 .vscode/
 *.log
+/docs/SERVING_PLAN.md
+/docs/SERVING_RESUME_EVIDENCE.md
 

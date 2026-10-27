@@ -1,0 +1,5 @@
+**
+!serving/
+!serving/**
+serving/bin/
+serving/**/testdata/

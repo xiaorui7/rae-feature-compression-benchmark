@@ -1,0 +1,19 @@
+File: shard
+Build ID: de5a23352b54fb056a19eef79262b0155df57ece
+Type: inuse_space
+Time: 2026-10-27 16:35:38 EDT
+Showing nodes accounting for 9082.70kB, 100% of 9082.70kB total
+Showing top 12 nodes out of 17
+      flat  flat%   sum%        cum   cum%
+ 6256.03kB 68.88% 68.88%  8570.65kB 94.36%  github.com/xiaorui7/rae-feature-compression-benchmark/serving/internal/format.Load
+ 1536.05kB 16.91% 85.79%  1536.05kB 16.91%  encoding/json.(*decodeState).literalStore
+  778.57kB  8.57% 94.36%   778.57kB  8.57%  reflect.growslice
+  512.05kB  5.64%   100%   512.05kB  5.64%  sync.runtime_notifyListWait
+         0     0%   100%  2314.62kB 25.48%  encoding/json.(*decodeState).array
+         0     0%   100%  2314.62kB 25.48%  encoding/json.(*decodeState).unmarshal
+         0     0%   100%  2314.62kB 25.48%  encoding/json.(*decodeState).value
+         0     0%   100%  2314.62kB 25.48%  encoding/json.Unmarshal
+         0     0%   100%  8570.65kB 94.36%  main.main
+         0     0%   100%  8570.65kB 94.36%  main.run
+         0     0%   100%   512.05kB  5.64%  net/http.(*conn).serve
+         0     0%   100%   512.05kB  5.64%  net/http.(*connReader).abortPendingRead

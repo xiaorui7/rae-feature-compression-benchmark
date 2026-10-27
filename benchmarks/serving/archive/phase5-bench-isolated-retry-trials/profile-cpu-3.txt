@@ -1,0 +1,21 @@
+File: shard
+Build ID: de5a23352b54fb056a19eef79262b0155df57ece
+Type: cpu
+Time: 2026-10-27 16:35:49 EDT
+Duration: 3s, Total samples = 2.82s (93.95%)
+Showing nodes accounting for 2.62s, 92.91% of 2.82s total
+Dropped 76 nodes (cum <= 0.01s)
+Showing top 12 nodes out of 62
+      flat  flat%   sum%        cum   cum%
+     1.25s 44.33% 44.33%      2.47s 87.59%  github.com/xiaorui7/rae-feature-compression-benchmark/serving/internal/index.(*Index).Search.func2
+     0.97s 34.40% 78.72%      0.99s 35.11%  github.com/xiaorui7/rae-feature-compression-benchmark/serving/internal/format.(*Vectors).Value (inline)
+     0.11s  3.90% 82.62%      0.11s  3.90%  internal/runtime/syscall/linux.Syscall6
+     0.05s  1.77% 84.40%      0.12s  4.26%  github.com/xiaorui7/rae-feature-compression-benchmark/serving/internal/topk.(*Heap).Add
+     0.05s  1.77% 86.17%      0.05s  1.77%  runtime.asyncPreempt
+     0.04s  1.42% 87.59%      0.04s  1.42%  github.com/xiaorui7/rae-feature-compression-benchmark/serving/internal/index.(*Index).Dim (inline)
+     0.04s  1.42% 89.01%      0.04s  1.42%  github.com/xiaorui7/rae-feature-compression-benchmark/serving/internal/topk.Better (inline)
+     0.03s  1.06% 90.07%      0.03s  1.06%  runtime.memclrNoHeapPointers
+     0.03s  1.06% 91.13%      0.03s  1.06%  runtime.nextFreeFast (inline)
+     0.02s  0.71% 91.84%      0.02s  0.71%  runtime.mapaccess1_faststr
+     0.02s  0.71% 92.55%      0.02s  0.71%  runtime.memmove
+     0.01s  0.35% 92.91%      0.12s  4.26%  google.golang.org/grpc.(*Server).serveStreams.func2.1

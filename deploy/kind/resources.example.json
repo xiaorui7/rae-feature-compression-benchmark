@@ -1,0 +1,529 @@
+{
+  "apiVersion": "v1",
+  "kind": "List",
+  "items": [
+    {
+      "apiVersion": "v1",
+      "kind": "Namespace",
+      "metadata": {
+        "name": "rae-serving"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "ConfigMap",
+      "metadata": {
+        "name": "coordinator-config",
+        "namespace": "rae-serving"
+      },
+      "data": {
+        "coordinator.json": "{\"dim\": 768, \"shards\": [[\"shard-0:9090\"], [\"shard-1:9090\"]]}"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Service",
+      "metadata": {
+        "name": "shard-0",
+        "namespace": "rae-serving"
+      },
+      "spec": {
+        "selector": {
+          "app": "shard-0"
+        },
+        "ports": [
+          {
+            "name": "grpc",
+            "port": 9090
+          }
+        ],
+        "clusterIP": "None"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Service",
+      "metadata": {
+        "name": "shard-0-cluster",
+        "namespace": "rae-serving"
+      },
+      "spec": {
+        "selector": {
+          "app": "shard-0"
+        },
+        "ports": [
+          {
+            "name": "grpc",
+            "port": 9090
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "apps/v1",
+      "kind": "Deployment",
+      "metadata": {
+        "name": "shard-0",
+        "namespace": "rae-serving"
+      },
+      "spec": {
+        "replicas": 2,
+        "strategy": {
+          "type": "RollingUpdate",
+          "rollingUpdate": {
+            "maxUnavailable": 0,
+            "maxSurge": 1
+          }
+        },
+        "selector": {
+          "matchLabels": {
+            "app": "shard-0"
+          }
+        },
+        "template": {
+          "metadata": {
+            "labels": {
+              "app": "shard-0"
+            }
+          },
+          "spec": {
+            "terminationGracePeriodSeconds": 20,
+            "securityContext": {
+              "runAsNonRoot": true,
+              "runAsUser": 65532
+            },
+            "containers": [
+              {
+                "name": "shard",
+                "image": "rae-serving:local",
+                "imagePullPolicy": "Never",
+                "command": [
+                  "/bin/shard"
+                ],
+                "args": [
+                  "--export=/exports/export-5b87268df01b11017c70ea414a57269de3f4a33ea42d84b03e0043d65083e62d",
+                  "--shard-index=0",
+                  "--listen=0.0.0.0:9090",
+                  "--admin=0.0.0.0:9091",
+                  "--workers=2",
+                  "--max-concurrent-searches=2",
+                  "--drain-timeout=10s",
+                  "--pprof"
+                ],
+                "env": [
+                  {
+                    "name": "SHARD_INDEX",
+                    "value": "0"
+                  }
+                ],
+                "ports": [
+                  {
+                    "containerPort": 9090
+                  },
+                  {
+                    "containerPort": 9091
+                  }
+                ],
+                "resources": {
+                  "requests": {
+                    "cpu": "1000m",
+                    "memory": "64Mi"
+                  },
+                  "limits": {
+                    "cpu": "1000m",
+                    "memory": "1Gi"
+                  }
+                },
+                "volumeMounts": [
+                  {
+                    "name": "exports",
+                    "mountPath": "/exports",
+                    "readOnly": true
+                  }
+                ],
+                "lifecycle": {
+                  "preStop": {
+                    "exec": {
+                      "command": [
+                        "/bin/wait",
+                        "3s"
+                      ]
+                    }
+                  }
+                },
+                "startupProbe": {
+                  "httpGet": {
+                    "path": "/healthz",
+                    "port": 9091
+                  },
+                  "periodSeconds": 3,
+                  "timeoutSeconds": 1,
+                  "failureThreshold": 60
+                },
+                "readinessProbe": {
+                  "httpGet": {
+                    "path": "/readyz",
+                    "port": 9091
+                  },
+                  "periodSeconds": 1,
+                  "timeoutSeconds": 1,
+                  "failureThreshold": 3
+                },
+                "livenessProbe": {
+                  "httpGet": {
+                    "path": "/healthz",
+                    "port": 9091
+                  },
+                  "periodSeconds": 3,
+                  "timeoutSeconds": 1,
+                  "failureThreshold": 3
+                }
+              }
+            ],
+            "volumes": [
+              {
+                "name": "exports",
+                "hostPath": {
+                  "path": "/exports",
+                  "type": "Directory"
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "apiVersion": "policy/v1",
+      "kind": "PodDisruptionBudget",
+      "metadata": {
+        "name": "shard-0",
+        "namespace": "rae-serving"
+      },
+      "spec": {
+        "minAvailable": 1,
+        "selector": {
+          "matchLabels": {
+            "app": "shard-0"
+          }
+        }
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Service",
+      "metadata": {
+        "name": "shard-1",
+        "namespace": "rae-serving"
+      },
+      "spec": {
+        "selector": {
+          "app": "shard-1"
+        },
+        "ports": [
+          {
+            "name": "grpc",
+            "port": 9090
+          }
+        ],
+        "clusterIP": "None"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Service",
+      "metadata": {
+        "name": "shard-1-cluster",
+        "namespace": "rae-serving"
+      },
+      "spec": {
+        "selector": {
+          "app": "shard-1"
+        },
+        "ports": [
+          {
+            "name": "grpc",
+            "port": 9090
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "apps/v1",
+      "kind": "Deployment",
+      "metadata": {
+        "name": "shard-1",
+        "namespace": "rae-serving"
+      },
+      "spec": {
+        "replicas": 2,
+        "strategy": {
+          "type": "RollingUpdate",
+          "rollingUpdate": {
+            "maxUnavailable": 0,
+            "maxSurge": 1
+          }
+        },
+        "selector": {
+          "matchLabels": {
+            "app": "shard-1"
+          }
+        },
+        "template": {
+          "metadata": {
+            "labels": {
+              "app": "shard-1"
+            }
+          },
+          "spec": {
+            "terminationGracePeriodSeconds": 20,
+            "securityContext": {
+              "runAsNonRoot": true,
+              "runAsUser": 65532
+            },
+            "containers": [
+              {
+                "name": "shard",
+                "image": "rae-serving:local",
+                "imagePullPolicy": "Never",
+                "command": [
+                  "/bin/shard"
+                ],
+                "args": [
+                  "--export=/exports/export-5b87268df01b11017c70ea414a57269de3f4a33ea42d84b03e0043d65083e62d",
+                  "--shard-index=1",
+                  "--listen=0.0.0.0:9090",
+                  "--admin=0.0.0.0:9091",
+                  "--workers=2",
+                  "--max-concurrent-searches=2",
+                  "--drain-timeout=10s",
+                  "--pprof"
+                ],
+                "env": [
+                  {
+                    "name": "SHARD_INDEX",
+                    "value": "1"
+                  }
+                ],
+                "ports": [
+                  {
+                    "containerPort": 9090
+                  },
+                  {
+                    "containerPort": 9091
+                  }
+                ],
+                "resources": {
+                  "requests": {
+                    "cpu": "1000m",
+                    "memory": "64Mi"
+                  },
+                  "limits": {
+                    "cpu": "1000m",
+                    "memory": "1Gi"
+                  }
+                },
+                "volumeMounts": [
+                  {
+                    "name": "exports",
+                    "mountPath": "/exports",
+                    "readOnly": true
+                  }
+                ],
+                "lifecycle": {
+                  "preStop": {
+                    "exec": {
+                      "command": [
+                        "/bin/wait",
+                        "3s"
+                      ]
+                    }
+                  }
+                },
+                "startupProbe": {
+                  "httpGet": {
+                    "path": "/healthz",
+                    "port": 9091
+                  },
+                  "periodSeconds": 3,
+                  "timeoutSeconds": 1,
+                  "failureThreshold": 60
+                },
+                "readinessProbe": {
+                  "httpGet": {
+                    "path": "/readyz",
+                    "port": 9091
+                  },
+                  "periodSeconds": 1,
+                  "timeoutSeconds": 1,
+                  "failureThreshold": 3
+                },
+                "livenessProbe": {
+                  "httpGet": {
+                    "path": "/healthz",
+                    "port": 9091
+                  },
+                  "periodSeconds": 3,
+                  "timeoutSeconds": 1,
+                  "failureThreshold": 3
+                }
+              }
+            ],
+            "volumes": [
+              {
+                "name": "exports",
+                "hostPath": {
+                  "path": "/exports",
+                  "type": "Directory"
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "apiVersion": "policy/v1",
+      "kind": "PodDisruptionBudget",
+      "metadata": {
+        "name": "shard-1",
+        "namespace": "rae-serving"
+      },
+      "spec": {
+        "minAvailable": 1,
+        "selector": {
+          "matchLabels": {
+            "app": "shard-1"
+          }
+        }
+      }
+    },
+    {
+      "apiVersion": "apps/v1",
+      "kind": "Deployment",
+      "metadata": {
+        "name": "coordinator",
+        "namespace": "rae-serving"
+      },
+      "spec": {
+        "replicas": 2,
+        "selector": {
+          "matchLabels": {
+            "app": "coordinator"
+          }
+        },
+        "template": {
+          "metadata": {
+            "labels": {
+              "app": "coordinator"
+            },
+            "annotations": {
+              "config": "{\"dim\": 768, \"shards\": [[\"shard-0:9090\"], [\"shard-1:9090\"]]}"
+            }
+          },
+          "spec": {
+            "terminationGracePeriodSeconds": 20,
+            "containers": [
+              {
+                "name": "coordinator",
+                "image": "rae-serving:local",
+                "imagePullPolicy": "Never",
+                "command": [
+                  "/bin/coordinator"
+                ],
+                "args": [
+                  "--config=/config/coordinator.json",
+                  "--listen=0.0.0.0:8080",
+                  "--shard-timeout=500ms",
+                  "--request-timeout=2s",
+                  "--balance=round_robin"
+                ],
+                "resources": {
+                  "requests": {
+                    "cpu": "250m",
+                    "memory": "32Mi"
+                  },
+                  "limits": {
+                    "cpu": "1",
+                    "memory": "256Mi"
+                  }
+                },
+                "volumeMounts": [
+                  {
+                    "name": "config",
+                    "mountPath": "/config",
+                    "readOnly": true
+                  }
+                ],
+                "lifecycle": {
+                  "preStop": {
+                    "exec": {
+                      "command": [
+                        "/bin/wait",
+                        "3s"
+                      ]
+                    }
+                  }
+                },
+                "startupProbe": {
+                  "httpGet": {
+                    "path": "/healthz",
+                    "port": 8080
+                  },
+                  "periodSeconds": 3,
+                  "timeoutSeconds": 1,
+                  "failureThreshold": 60
+                },
+                "readinessProbe": {
+                  "httpGet": {
+                    "path": "/readyz",
+                    "port": 8080
+                  },
+                  "periodSeconds": 1,
+                  "timeoutSeconds": 1,
+                  "failureThreshold": 3
+                },
+                "livenessProbe": {
+                  "httpGet": {
+                    "path": "/healthz",
+                    "port": 8080
+                  },
+                  "periodSeconds": 3,
+                  "timeoutSeconds": 1,
+                  "failureThreshold": 3
+                }
+              }
+            ],
+            "volumes": [
+              {
+                "name": "config",
+                "configMap": {
+                  "name": "coordinator-config"
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Service",
+      "metadata": {
+        "name": "coordinator",
+        "namespace": "rae-serving"
+      },
+      "spec": {
+        "selector": {
+          "app": "coordinator"
+        },
+        "ports": [
+          {
+            "port": 8080,
+            "targetPort": 8080
+          }
+        ]
+      }
+    }
+  ]
+}

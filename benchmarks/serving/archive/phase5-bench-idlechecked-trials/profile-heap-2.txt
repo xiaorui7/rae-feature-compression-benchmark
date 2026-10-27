@@ -1,0 +1,19 @@
+File: shard
+Build ID: de5a23352b54fb056a19eef79262b0155df57ece
+Type: inuse_space
+Time: 2026-10-27 16:24:28 EDT
+Showing nodes accounting for 10267.70kB, 100% of 10267.70kB total
+Showing top 12 nodes out of 32
+      flat  flat%   sum%        cum   cum%
+ 6256.03kB 60.93% 60.93%  8058.63kB 78.49%  github.com/xiaorui7/rae-feature-compression-benchmark/serving/internal/format.Load
+ 1184.27kB 11.53% 72.46%  1184.27kB 11.53%  runtime/pprof.StartCPUProfile
+ 1024.03kB  9.97% 82.44%  1024.03kB  9.97%  encoding/json.(*decodeState).literalStore
+  778.57kB  7.58% 90.02%   778.57kB  7.58%  reflect.growslice
+  512.75kB  4.99% 95.01%   512.75kB  4.99%  google.golang.org/protobuf/internal/strs.(*Builder).grow (inline)
+  512.05kB  4.99%   100%   512.05kB  4.99%  runtime.mallocgc
+         0     0%   100%  1802.60kB 17.56%  encoding/json.(*decodeState).array
+         0     0%   100%  1802.60kB 17.56%  encoding/json.(*decodeState).unmarshal
+         0     0%   100%  1802.60kB 17.56%  encoding/json.(*decodeState).value
+         0     0%   100%  1802.60kB 17.56%  encoding/json.Unmarshal
+         0     0%   100%   512.75kB  4.99%  github.com/xiaorui7/rae-feature-compression-benchmark/serving/proto.file_proto_search_proto_init
+         0     0%   100%   512.75kB  4.99%  github.com/xiaorui7/rae-feature-compression-benchmark/serving/proto.init.0
